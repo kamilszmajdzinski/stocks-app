@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectWatchlist, updateWatchlistPrices } from "../store/stocksSlice";
 import type { AppDispatch } from "../store/store";
 
-const POLLING_INTERVAL = 3000; // 30 seconds
+const POLLING_INTERVAL = 30000; // 30 seconds
 
 export default function WatchlistPriceUpdater() {
   const dispatch = useDispatch<AppDispatch>();

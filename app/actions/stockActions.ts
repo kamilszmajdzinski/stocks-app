@@ -36,7 +36,6 @@ export async function searchStocksAction(query: string): Promise<StockData[]> {
             const searchResult = result as YahooSearchResult;
             try {
               const quoteResponse = await yahooFinance.quote(searchResult.symbol);
-              // Handle the case where quote might be an array
               const quote = Array.isArray(quoteResponse) ? quoteResponse[0] : quoteResponse;
               
               return {

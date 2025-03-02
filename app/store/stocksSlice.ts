@@ -80,7 +80,6 @@ export const stocksSlice = createSlice({
         state.error = action.error.message || 'An error occurred';
       })
       .addCase(updateWatchlistPrices.fulfilled, (state, action) => {
-        // Update prices for watchlist stocks
         state.watchlistStocks = state.watchlistStocks.map(watchlistStock => {
           const updatedStock = action.payload.find(
             stock => stock.symbol === watchlistStock.symbol
