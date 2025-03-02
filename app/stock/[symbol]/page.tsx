@@ -3,13 +3,14 @@ import StockChart from "../../components/StockChart";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: {
+  params: Promise<{
     symbol: string;
-  };
+  }>;
 }
 
 export default async function StockPage({ params }: Props) {
-  const stockDetails = await getStockDetails(params.symbol);
+  const { symbol } = await params;
+  const stockDetails = await getStockDetails(symbol);
 
   if (!stockDetails) {
     notFound();
