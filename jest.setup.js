@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom";
 
-// Mock next/navigation
 jest.mock("next/navigation", () => ({
   useRouter() {
     return {
@@ -14,7 +13,6 @@ jest.mock("next/navigation", () => ({
   },
 }));
 
-// Mock window.fetch
 global.fetch = jest.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve({}),

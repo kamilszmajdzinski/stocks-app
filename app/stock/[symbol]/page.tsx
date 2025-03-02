@@ -21,11 +21,13 @@ export default async function StockPage({ params }: Props) {
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h1 className="text-3xl font-bold">{stockDetails.symbol}</h1>
+              <h1 className="text-3xl text-gray-700 font-bold">
+                {stockDetails.symbol}
+              </h1>
               <p className="text-gray-600 text-xl">{stockDetails.name}</p>
             </div>
             <div className="text-right">
-              <p className="text-3xl font-bold">
+              <p className="text-3xl font-bold text-gray-700">
                 ${stockDetails.price.toFixed(2)}
               </p>
               <p

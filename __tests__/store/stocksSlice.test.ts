@@ -6,6 +6,8 @@ import stocksReducer, {
   updateWatchlistPrices,
 } from '../../app/store/stocksSlice';
 import { configureStore } from '@reduxjs/toolkit';
+import type { RootState } from '@/app/store/store';
+import '@testing-library/jest-dom';
 
 const mockStock = {
   symbol: 'AAPL',
@@ -27,7 +29,8 @@ describe('stocks reducer', () => {
   });
 
   it('should handle initial state', () => {
-    expect(store.getState().stocks).toEqual({
+    const state = store.getState() as RootState
+    expect(state.stocks).toEqual({
       stocks: [],
       watchlistStocks: [],
       searchQuery: '',
@@ -38,54 +41,70 @@ describe('stocks reducer', () => {
 
   it('should handle setStocks', () => {
     store.dispatch(setStocks([mockStock]));
-    expect(store.getState().stocks.stocks).toEqual([mockStock]);
-    expect(store.getState().stocks.searchQuery).toBe('');
+
+    const state = store.getState() as RootState
+    expect(state.stocks.stocks).toEqual([mockStock]);
+    expect(state.stocks.searchQuery).toBe('');
   });
 
   describe('watchlist operations', () => {
     it('should add stock to watchlist', () => {
       store.dispatch(addToWatchlist(mockStock));
-      expect(store.getState().stocks.watchlistStocks).toContainEqual(mockStock);
+
+      const state = store.getState() as RootState
+      expect(state.stocks.watchlistStocks).toContainEqual(mockStock);
     });
 
     it('should not add duplicate stock to watchlist', () => {
       store.dispatch(addToWatchlist(mockStock));
       store.dispatch(addToWatchlist(mockStock));
-      expect(store.getState().stocks.watchlistStocks).toHaveLength(1);
+
+      const state = store.getState() as RootState
+      expect(state.stocks.watchlistStocks).toHaveLength(1);
     });
 
     it('should remove stock from watchlist', () => {
       store.dispatch(addToWatchlist(mockStock));
       store.dispatch(removeFromWatchlist(mockStock.symbol));
-      expect(store.getState().stocks.watchlistStocks).toHaveLength(0);
+
+      const state = store.getState() as RootState
+      expect(state.stocks.watchlistStocks).toHaveLength(0);
     });
   });
 
   describe('async actions', () => {
     it('should set loading state during search', () => {
       store.dispatch(searchStocks.pending('', ''));
-      expect(store.getState().stocks.isLoading).toBe(true);
-      expect(store.getState().stocks.error).toBe(null);
+
+      const state = store.getState() as RootState
+      expect(state.stocks.isLoading).toBe(true);
+      expect(state.stocks.error).toBe(null);
     });
 
     it('should handle search success', () => {
       store.dispatch(searchStocks.fulfilled({ results: [mockStock], query: 'AAPL' }, '', 'AAPL'));
-      expect(store.getState().stocks.stocks).toEqual([mockStock]);
-      expect(store.getState().stocks.searchQuery).toBe('AAPL');
-      expect(store.getState().stocks.isLoading).toBe(false);
+
+      const state = store.getState() as RootState
+      expect(state.stocks.stocks).toEqual([mockStock]);
+      expect(state.stocks.searchQuery).toBe('AAPL');
+      expect(state.stocks.isLoading).toBe(false);
     });
 
     it('should handle search failure', () => {
       store.dispatch(searchStocks.rejected(new Error('Network error'), '', ''));
-      expect(store.getState().stocks.isLoading).toBe(false);
-      expect(store.getState().stocks.error).toBe('Network error');
+
+      const state = store.getState() as RootState
+      expect(state.stocks.isLoading).toBe(false);
+      expect(state.stocks.error).toBe('Network error');
     });
 
     it('should update watchlist prices', () => {
       const updatedStock = { ...mockStock, price: 155.25 };
       store.dispatch(addToWatchlist(mockStock));
-      store.dispatch(updateWatchlistPrices.fulfilled([updatedStock], '', []));
-      expect(store.getState().stocks.watchlistStocks[0].price).toBe(155.25);
+      store.dispatch(updateWatchlistPrices.fulfilled([updatedStock], '', [] as unknown as void));
+
+      const state = store.getState() as RootState
+      expect(state.stocks.watchlistStocks[0].price).toBe(155.25);
     });
   });
 }); 

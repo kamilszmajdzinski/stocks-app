@@ -46,6 +46,7 @@ export const stocksSlice = createSlice({
   initialState,
   reducers: {
     setStocks: (state, action: PayloadAction<StockData[]>) => {
+      console.log(state, action)
       state.stocks = action.payload;
       state.searchQuery = '';
     },
@@ -90,7 +91,6 @@ export const stocksSlice = createSlice({
   },
 });
 
-// Selectors
 export const selectStocks = (state: { stocks: StocksState }) => state.stocks.stocks;
 export const selectWatchlist = (state: { stocks: StocksState }) => state.stocks.watchlistStocks;
 export const selectIsWatchlisted = (symbol: string) => 

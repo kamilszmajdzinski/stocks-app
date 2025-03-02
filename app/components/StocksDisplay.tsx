@@ -39,7 +39,7 @@ export default function StocksDisplay({
       {error && <div className="text-center text-red-600 mb-4">{error}</div>}
 
       {isLoading ? (
-        <div className="text-center">Loading stocks...</div>
+        <div className="text-center text-gray-600">Loading stocks...</div>
       ) : stocks.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {stocks.map((stock) => (
