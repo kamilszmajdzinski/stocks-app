@@ -1,5 +1,7 @@
 ## How to run
 
+Live preview: https://stocks-app-red.vercel.app/
+
 To run app locally:
 
 ```bash
