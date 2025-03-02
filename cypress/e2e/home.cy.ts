@@ -24,6 +24,6 @@ describe('Home Page', () => {
       .click();
 
     cy.url().should('include', '/stock/');
-    cy.get('[data-testid="stock-details"]').should('exist');
+    cy.get('[data-testid="stock-chart"]').should('exist');
   });
 }); 

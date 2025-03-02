@@ -27,6 +27,8 @@ export async function searchStocksAction(query: string): Promise<StockData[]> {
           .slice(0, 5)
           .filter(result => result.symbol)
           .map(async (result) => {
+            console.log('result', result);
+
             try {
               const quote = await yahooFinance.quote(result.symbol);
               return {

@@ -14,7 +14,7 @@ export default function WatchlistPage() {
       <WatchlistPriceUpdater />
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">My Watchlist</h1>
+          <h1 className="text-3xl font-bold text-gray-700">My Watchlist</h1>
           <Link
             href="/"
             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
@@ -24,7 +24,7 @@ export default function WatchlistPage() {
         </div>
 
         {watchlistStocks.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-12" data-testid="empty-watchlist">
             <p className="text-gray-600 text-lg mb-4">
               Your watchlist is empty
             </p>

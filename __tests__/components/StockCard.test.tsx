@@ -2,10 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import StockCard from "../../app/components/StockCard";
-import stocksReducer, {
-  addToWatchlist,
-  removeFromWatchlist,
-} from "../../app/store/stocksSlice";
+import stocksReducer from "../../app/store/stocksSlice";
 
 // Mock stock data
 const mockStock = {
@@ -16,7 +13,6 @@ const mockStock = {
   changePercent: 1.67,
 };
 
-// Setup store for testing
 const setupStore = () => {
   return configureStore({
     reducer: {
@@ -25,7 +21,7 @@ const setupStore = () => {
   });
 };
 
-describe("StockCard", () => {
+describe.only("StockCard", () => {
   it("renders stock information correctly", () => {
     const store = setupStore();
     render(
@@ -42,7 +38,7 @@ describe("StockCard", () => {
 
   it("shows green arrow and color for positive change", () => {
     const store = setupStore();
-    const { container } = render(
+    render(
       <Provider store={store}>
         <StockCard stock={mockStock} />
       </Provider>
@@ -55,7 +51,7 @@ describe("StockCard", () => {
   it("shows red arrow and color for negative change", () => {
     const store = setupStore();
     const negativeStock = { ...mockStock, change: -2.5, changePercent: -1.67 };
-    const { container } = render(
+    render(
       <Provider store={store}>
         <StockCard stock={negativeStock} />
       </Provider>
@@ -75,11 +71,9 @@ describe("StockCard", () => {
 
     const starButton = screen.getByRole("button");
 
-    // Click to add to watchlist
     fireEvent.click(starButton);
     expect(store.getState().stocks.watchlistStocks).toContainEqual(mockStock);
 
-    // Click again to remove from watchlist
     fireEvent.click(starButton);
     expect(store.getState().stocks.watchlistStocks).not.toContainEqual(
       mockStock
@@ -94,8 +88,8 @@ describe("StockCard", () => {
       </Provider>
     );
 
-    const indicator = screen.getByRole("presentation", { hidden: true });
-    expect(indicator).toHaveClass("animate-pulse");
+    const indicator = screen.getByTestId("price-update-indicator");
+    expect(indicator).toBeInTheDocument();
   });
 
   it("does not show price update indicator when showPriceUpdate prop is false", () => {

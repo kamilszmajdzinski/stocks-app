@@ -69,7 +69,10 @@ export default function StockCard({
           <div className="flex items-center gap-1">
             <ArrowIcon className={`w-6 h-6 ${changeColor}`} />
             {showPriceUpdate && (
-              <div className="group relative">
+              <div
+                className="group relative"
+                data-testid="price-update-indicator"
+              >
                 <div className="bg-green-700 rounded-full w-2 h-2 animate-pulse cursor-help"></div>
                 <div className="absolute bottom-full z-10 left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                   Price is updated every 30 seconds
@@ -85,8 +88,8 @@ export default function StockCard({
           >
             ${stock.price.toFixed(2)}
           </span>
-          <div className={`flex items-center ${changeColor}`}>
-            <span className="text-sm font-medium">
+          <div className="flex items-center">
+            <span className={`text-sm font-medium ${changeColor}`}>
               {stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
             </span>
           </div>

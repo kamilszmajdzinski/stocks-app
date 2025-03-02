@@ -42,27 +42,6 @@ export async function getPopularStocks(): Promise<StockData[]> {
   }
 }
 
-export async function searchStocks(query: string): Promise<StockData[]> {
-  try {
-    const results = await yahooFinance.search(query);
-    const quotes = await Promise.all(
-      results.quotes
-        .slice(0, 8)
-        .map(result => yahooFinance.quote(result.symbol))
-    );
-
-    return quotes.map(quote => ({
-      symbol: quote.symbol,
-      name: quote.longName || quote.shortName || quote.symbol,
-      price: quote.regularMarketPrice,
-      change: quote.regularMarketChange,
-      changePercent: quote.regularMarketChangePercent,
-    }));
-  } catch (error) {
-    console.error('Error searching stocks:', error);
-    return [];
-  }
-}
 
 export async function getStockDetails(symbol: string): Promise<StockDetails | null> {
   try {

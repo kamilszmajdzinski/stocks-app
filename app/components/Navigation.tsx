@@ -17,6 +17,7 @@ export default function Navigation() {
           <div className="flex gap-2 h-full">
             <div className="flex">
               <Link
+                data-testid="popular-stocks-link"
                 href="/"
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-xs md:text-sm font-medium ${
                   pathname === "/"
@@ -29,6 +30,7 @@ export default function Navigation() {
             </div>
             <div className="flex">
               <Link
+                data-testid="watchlist-link"
                 href="/watchlist"
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-xs md:text-sm font-medium ${
                   pathname === "/watchlist"

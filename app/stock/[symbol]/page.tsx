@@ -39,7 +39,7 @@ export default async function StockPage({ params }: Props) {
             </div>
           </div>
 
-          <div className="h-[500px]">
+          <div className="h-[500px]" data-testid="stock-chart">
             <StockChart data={stockDetails.historicalData} />
           </div>
         </div>
